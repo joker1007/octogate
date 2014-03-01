@@ -1,5 +1,4 @@
-env = ENV["RACK_ENV"] || "development"
-Bundler.require(:default, env)
+require "sinatra"
 
 class Octogate::Server < Sinatra::Base
   configure :production, :development do
@@ -7,6 +6,10 @@ class Octogate::Server < Sinatra::Base
   end
 
   get '/:token' do
-    params.tapp
+    unless Octogate.config.token == params[:token]
+      status 403
+      body "Access forbidden"
+      return
+    end
   end
 end
