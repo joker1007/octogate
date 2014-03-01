@@ -12,3 +12,7 @@ end
 def push_payload
   File.read(File.join(File.dirname(File.expand_path(__FILE__)), 'push_payload.json'))
 end
+
+def config_file
+  File.join(File.dirname(File.expand_path(__FILE__)), 'config_fixture.rb')
+end
