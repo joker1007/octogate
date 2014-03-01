@@ -14,7 +14,9 @@ module Octogate
   end
 end
 
-require "octogate/config_loader"
 require "octogate/model"
+require "octogate/config_loader"
+require "octogate/target"
+require "octogate/target_builder"
 require "octogate/events"
 require "octogate/gh"
