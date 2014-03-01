@@ -1,4 +1,5 @@
 # Octogate
+[![Code Climate](https://codeclimate.com/github/joker1007/octogate.png)](https://codeclimate.com/github/joker1007/octogate)
 
 Github hook proxy server
 
