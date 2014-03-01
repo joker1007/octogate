@@ -1,0 +1,94 @@
+{
+  "ref": "refs/heads/master",
+  "after": "350acda637a9f5be559144dd515641ea9bc47862",
+  "before": "aad61c66fa4917f184d2140052c96541aa7b867e",
+  "created": false,
+  "deleted": false,
+  "forced": false,
+  "compare": "https://github.com/joker1007/simple_note/compare/aad61c66fa49...350acda637a9",
+  "commits": [
+    {
+      "id": "350acda637a9f5be559144dd515641ea9bc47862",
+      "distinct": true,
+      "message": "bundle update",
+      "timestamp": "2014-02-28T18:52:59-08:00",
+      "url": "https://github.com/joker1007/simple_note/commit/350acda637a9f5be559144dd515641ea9bc47862",
+      "author": {
+        "name": "joker1007",
+        "email": "kakyoin.hierophant@gmail.com",
+        "username": "joker1007"
+      },
+      "committer": {
+        "name": "joker1007",
+        "email": "kakyoin.hierophant@gmail.com",
+        "username": "joker1007"
+      },
+      "added": [
+
+      ],
+      "removed": [
+
+      ],
+      "modified": [
+        "Gemfile",
+        "Gemfile.lock"
+      ]
+    }
+  ],
+  "head_commit": {
+    "id": "350acda637a9f5be559144dd515641ea9bc47862",
+    "distinct": true,
+    "message": "bundle update",
+    "timestamp": "2014-02-28T18:52:59-08:00",
+    "url": "https://github.com/joker1007/simple_note/commit/350acda637a9f5be559144dd515641ea9bc47862",
+    "author": {
+      "name": "joker1007",
+      "email": "kakyoin.hierophant@gmail.com",
+      "username": "joker1007"
+    },
+    "committer": {
+      "name": "joker1007",
+      "email": "kakyoin.hierophant@gmail.com",
+      "username": "joker1007"
+    },
+    "added": [
+
+    ],
+    "removed": [
+
+    ],
+    "modified": [
+      "Gemfile",
+      "Gemfile.lock"
+    ]
+  },
+  "repository": {
+    "id": 15564569,
+    "name": "simple_note",
+    "url": "https://github.com/joker1007/simple_note",
+    "description": "Rails and Backbone sample",
+    "homepage": "",
+    "watchers": 0,
+    "stargazers": 0,
+    "forks": 0,
+    "fork": false,
+    "size": 172,
+    "owner": {
+      "name": "joker1007",
+      "email": "kakyoin.hierophant@gmail.com"
+    },
+    "private": false,
+    "open_issues": 0,
+    "has_issues": true,
+    "has_downloads": true,
+    "has_wiki": true,
+    "language": "Ruby",
+    "created_at": 1388583231,
+    "pushed_at": 1393642393,
+    "master_branch": "master"
+  },
+  "pusher": {
+    "name": "joker1007",
+    "email": "kakyoin.hierophant@gmail.com"
+  }
+}
