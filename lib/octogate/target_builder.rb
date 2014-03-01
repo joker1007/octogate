@@ -2,6 +2,8 @@ module Octogate
   class TargetBuilder
     def initialize
       @url            = nil
+      @username       = nil
+      @password       = nil
       @hook_type      = [:push]
       @http_method    = :get
       @parameter_type = :query
@@ -10,6 +12,14 @@ module Octogate
 
     def url(url)
       @url = url
+    end
+
+    def username(username)
+      @username = username
+    end
+
+    def password(password)
+      @password = password
     end
 
     def hook_type(types)
@@ -34,12 +44,14 @@ module Octogate
 
     def __to_target__
       Target.new(
-        url: @url,
-        hook_type: @hook_type,
-        http_method: @http_method,
-        parameter_type: @parameter_type,
-        params: @params,
-        match: @match,
+        url:             @url,
+        username:        @username,
+        password:        @password,
+        hook_type:       @hook_type,
+        http_method:     @http_method,
+        parameter_type:  @parameter_type,
+        params:          @params,
+        match:           @match,
       )
     end
   end

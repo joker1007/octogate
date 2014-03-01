@@ -18,6 +18,8 @@ class Octogate::Client
           faraday.adapter  Faraday.default_adapter
         end
 
+        conn.basic_auth(t.username, t.password) if t.username && t.password
+
         case t.http_method
         when :get
           conn.get do |req|
