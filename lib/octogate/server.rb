@@ -12,10 +12,12 @@ class Octogate::Server < Sinatra::Base
       return
     end
 
-    p params
-    # TODO: Fake Implementation
-    event = Octogate::Event::Push.parse(params[:payload])
-    Octogate::Client.new(event).send_to_targets
+    event_name = request.env["HTTP_X_GITHUB_EVENT"]
+    case event_name
+    when "push"
+      event = Octogate::Event::Push.parse(params[:payload])
+      Octogate::Client.new(event).send_to_targets
+    end
 
     return
   end
