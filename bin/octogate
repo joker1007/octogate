@@ -4,12 +4,16 @@ require "octogate"
 require "octogate/server"
 require 'optparse'
 
-options = {config_file: "./config.rb"}
+options = {config_file: "./config.rb", bind: "0.0.0.0"}
 OptionParser.new { |o|
   o.on('-c config', 'Set config file (default = ./config.rb)') { |config_file| options[:config_file] = config_file }
   o.on('-p port', 'Set port number (default = 4567)') { |port| options[:port] = port.to_i }
   o.on('-o address', 'Set address to bind (default = 0.0.0.0)') { |addr| options[:bind] = addr }
+  o.on('-s server', 'Set Rack server handler name') { |handler| options[:server] = handler }
 }.parse!(ARGV.dup)
 
+
 Octogate::ConfigLoader.load_config(options[:config_file])
+puts "Load Config: #{options[:config_file]}"
+
 Octogate::Server.run!(options)

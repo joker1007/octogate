@@ -53,7 +53,13 @@ end
 And launch server.
 
 ```sh
-bundle exec octogate -c config.rb
+% bundle exec octogate -h
+Usage: octogate [options]
+    -c config                        Set config file (default = ./config.rb)
+    -p port                          Set port number (default = 4567)
+    -o address                       Set address to bind (default = 0.0.0.0)
+
+% bundle exec octogate -c config.rb
 ```
 
 ## Contributing
