@@ -10,7 +10,16 @@ class Octogate::Client
 
   def send_to_targets
     Octogate.config.targets.each do |t|
-      if instance_exec(&t.match)
+      condition = event.default_condition
+      case t.match
+      when Proc
+        condition = condition && instance_exec(&t.match)
+      when nil
+      else
+        condition = condition && !!t.match
+      end
+
+      if condition
         uri = URI(t.url)
 
         options = {url: t.url}

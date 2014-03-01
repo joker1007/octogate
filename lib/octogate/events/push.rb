@@ -9,7 +9,7 @@ module Octogate
           GH::Commit.new(c.symbolize_keys)
         end
 
-        head_commit = GH::Commit.new(payload[:head_commit])
+        head_commit = payload[:head_commit] ? GH::Commit.new(payload[:head_commit]) : nil
 
         repository = GH::Repository.new(payload[:repository])
 
@@ -26,6 +26,10 @@ module Octogate
           repository: repository,
         )
       end
+    end
+
+    def default_condition
+      !deleted
     end
   end
 end
