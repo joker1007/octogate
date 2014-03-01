@@ -2,6 +2,11 @@ require 'spec_helper'
 
 describe Octogate::ConfigLoader do
   describe ".load_config" do
+    before do
+      Octogate.config.token = nil
+      Octogate.config.targets = []
+    end
+
     subject { Octogate::ConfigLoader.load_config(config_file) }
 
     it "evaluate config on ConfigLoader instance binding" do

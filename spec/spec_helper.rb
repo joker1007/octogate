@@ -1,6 +1,9 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'octogate'
 require 'tapp'
+require 'webmock/rspec'
+
+WebMock.disable_net_connect!
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
@@ -8,6 +11,10 @@ RSpec.configure do |config|
   config.filter_run :focus
 
   config.order = 'random'
+
+  config.before(:suite) do
+    Octogate::ConfigLoader.load_config(config_file)
+  end
 end
 
 def push_payload
@@ -15,5 +22,5 @@ def push_payload
 end
 
 def config_file
-  File.join(File.dirname(File.expand_path(__FILE__)), 'config_fixture.rb')
+  File.join(File.dirname(File.expand_path(__FILE__)), 'config_sample.rb')
 end

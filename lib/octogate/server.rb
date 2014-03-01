@@ -11,5 +11,11 @@ class Octogate::Server < Sinatra::Base
       body "Access forbidden"
       return
     end
+
+    # TODO: Fake Implementation
+    event = Octogate::Event::Push.parse(params.delete(:token))
+    Octogate::Client.new(event).send_to_targets
+
+    return
   end
 end

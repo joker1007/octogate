@@ -21,10 +21,12 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "sinatra"
   spec.add_runtime_dependency "activesupport", ">= 4"
   spec.add_runtime_dependency "oj"
+  spec.add_runtime_dependency "faraday"
 
   spec.add_development_dependency "bundler", ">= 1.5"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "tapp"
   spec.add_development_dependency "awesome_print"
+  spec.add_development_dependency "webmock"
 end

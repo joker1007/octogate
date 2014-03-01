@@ -15,6 +15,7 @@ module Octogate
 end
 
 require "octogate/model"
+require "octogate/client"
 require "octogate/config_loader"
 require "octogate/target"
 require "octogate/target_builder"
