@@ -26,5 +26,13 @@ module Octogate
       builder.instance_eval(&block)
       @_target_builders << builder
     end
+
+    def ca_file(ca_file)
+      Octogate.config.ca_file = ca_file
+    end
+
+    def ssl_verify(verify)
+      Octogate.config.ssl_verify = verify
+    end
   end
 end

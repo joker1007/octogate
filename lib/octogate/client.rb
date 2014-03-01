@@ -12,7 +12,16 @@ class Octogate::Client
     Octogate.config.targets.each do |t|
       if instance_exec(&t.match)
         uri = URI(t.url)
-        conn = Faraday.new(url: t.url) do |faraday|
+        options = {url: t.url}
+        if uri.scheme == "https"
+          if Octogate.config.ssl_verify
+            options.merge!(ssl: {ca_file: Octogate.config.ca_file}) if Octogate.config.ca_file
+          else
+            options.merge!(ssl: {verify: false})
+          end
+          p options
+        end
+        conn = Faraday.new(options) do |faraday|
           faraday.request  :url_encoded
           faraday.response :logger if ENV["RACK_ENV"] == "development" || ENV["RACK_ENV"] == "production"
           faraday.adapter  Faraday.default_adapter
