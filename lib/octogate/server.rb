@@ -14,7 +14,7 @@ class Octogate::Server < Sinatra::Base
 
     p params
     # TODO: Fake Implementation
-    event = Octogate::Event::Push.parse(Oj.load(params[:payload]))
+    event = Octogate::Event::Push.parse(params[:payload])
     Octogate::Client.new(event).send_to_targets
 
     return
