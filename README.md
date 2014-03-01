@@ -1,6 +1,6 @@
 # Octogate
 
-TODO: Write a gem description
+Github hook proxy server
 
 ## Installation
 
@@ -18,7 +18,43 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Write config.rb.
+
+```ruby
+token "token"
+
+target "jenkins" do
+  hook_type [:push, :pull_request]
+  url "http://targethost.dev/job/CommitStage"
+  http_method :get
+
+  parameter_type :query
+  params key1: "value1", key2: "value2"
+
+  match -> {
+    hook.ref =~ /master/
+  }
+end
+
+target "jenkins2" do
+  hook_type [:push, :pull_request]
+  url "http://targethost2.dev/job/CommitStage"
+  http_method :get
+
+  parameter_type :json
+  params key1: "value1", key2: "value2"
+
+  match -> {
+    !(hook.ref =~ /master/)
+  }
+end
+```
+
+And launch server.
+
+```sh
+bundle exec octogate -c config.rb
+```
 
 ## Contributing
 
