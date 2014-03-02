@@ -1,0 +1,1 @@
+web: bundle exec octogate -c ./config.rb -p $PORT
