@@ -22,8 +22,8 @@ RSpec.configure do |config|
   end
 end
 
-def push_payload
-  File.read(File.join(File.dirname(File.expand_path(__FILE__)), 'push_payload.json'))
+def read_payload(name)
+  File.read(File.join(File.dirname(File.expand_path(__FILE__)), "#{name}_payload.json"))
 end
 
 def config_file

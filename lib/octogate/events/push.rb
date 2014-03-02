@@ -1,9 +1,12 @@
+require "octogate/events/base"
 require "octogate/gh"
 
 module Octogate
   class Event::Push < Event::Base
+    register_event :push, self
+
     coerce_key :head_commit, GH::Commit
-    coerce_key :repository, GH::Repository
+    coerce_key :repository,  GH::Repository
 
     class << self
       def parse(json)

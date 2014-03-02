@@ -2,7 +2,7 @@ token "token"
 # ssl_verify false
 
 target "jenkins" do
-  hook_type [:push, :pull_request]
+  hook_type [:push]
   url "http://targethost.dev/job/JobName"
   http_method :post
 
@@ -23,7 +23,12 @@ target "json_params" do
   params key1: "value1", key2: "value2"
 
   match ->(event) {
-    event.ref =~ /json_params/
+    case event
+    when Octogate::Event::PullRequest
+      event.try(:pull_request).try(:head).try(:ref) =~ /json_params/
+    when Octogate::Event::Push
+      event.ref =~ /json_params/
+    end
   }
 end
 
@@ -63,6 +68,13 @@ target "always" do
   http_method :post
 
   params always: "true"
+end
+
+target "always_push_only" do
+  url "http://targethost.dev/job/JobName"
+  http_method :post
+
+  params always: "push_only"
 end
 
 target "never" do
