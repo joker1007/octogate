@@ -80,6 +80,54 @@ Usage: octogate [options]
 - Push Event
 - PullRequest Event
 
+## Hosting on Heroku
+
+Create directory and bundle init.
+
+```sh
+% mkdir your-app-dir
+% cd your-app-dir
+% bundle init
+```
+
+Write `Gemfile` and `bundle install`.
+
+```ruby
+gem "octogate"
+gem "thin"
+```
+
+```sh
+bundle install --path .bundle
+```
+
+Write `Procfile`
+
+```
+web: bundle exec octogate -c ./config.rb -p $PORT
+```
+
+Write config at `./config.rb`
+
+```sh
+% vim config.rb
+```
+
+Create git repository.
+
+```sh
+% git init .
+% echo ".bundle" > .gitignore
+% git commit -am "init"
+```
+
+Create Heroku app and push it.
+
+```sh
+% heroku create your-app-name
+% git push heroku master
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/joker1007/octogate/fork )
