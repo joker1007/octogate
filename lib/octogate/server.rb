@@ -16,7 +16,7 @@ class Octogate::Server < Sinatra::Base
     case event_name
     when "push"
       event = Octogate::Event::Push.parse(params[:payload])
-      Octogate::Client.new(event).send_to_targets
+      Octogate::Client.new(event).request_to_targets
     end
 
     return
