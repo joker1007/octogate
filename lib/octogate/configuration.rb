@@ -6,7 +6,7 @@ module Octogate
     attr_accessor :targets, :token, :ca_file, :ssl_verify
 
     def initialize
-      @targets ||= []
+      @targets ||= {}
       @ssl_verify = true
     end
   end

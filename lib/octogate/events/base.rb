@@ -1,7 +1,5 @@
 module Octogate
-  class Event::Base
-    include Octogate::Model
-
+  class Event::Base < Octogate::Model
     def default_condition
       true
     end

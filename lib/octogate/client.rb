@@ -1,5 +1,6 @@
 require "faraday"
 require "uri"
+require "octogate/transfer_request"
 
 class Octogate::Client
   attr_reader :event
@@ -9,17 +10,8 @@ class Octogate::Client
   end
 
   def request_to_targets
-    Octogate.config.targets.each do |t|
-      condition = event.default_condition
-      case t.match
-      when Proc
-        condition = condition && instance_exec(event, &t.match)
-      when nil
-      else
-        condition = condition && !!t.match
-      end
-
-      if condition
+    Octogate.config.targets.each do |target_name, t|
+      if match_target?(t)
         request(t)
       end
     end
@@ -37,25 +29,27 @@ class Octogate::Client
 
     case t.http_method
     when :get
-      conn.get do |req|
-        req.url uri.path
-        params.each do |k, v|
-          req.params[k] = v
-        end
-      end
+      Octogate::TransferRequest::GET.new(conn)
+        .do_request(url: uri.path, params: params)
     when :post
-      if t.parameter_type == :json
-        conn.post uri.path do |req|
-          req.headers['Content-Type'] = 'application/json'
-          req.body = Oj.dump(params)
-        end
-      else
-        conn.post uri.path, params
-      end
+      Octogate::TransferRequest::POST.new(conn)
+        .do_request(url: uri.path, params: params, parameter_type: t.parameter_type)
     end
   end
 
   private
+
+  def match_target?(target)
+    condition = event.default_condition
+    case target.match
+    when Proc
+      condition && instance_exec(event, &target.match)
+    when nil
+      condition
+    else
+      condition && !!target.match
+    end
+  end
 
   def build_connection(options, username = nil, password = nil)
     conn = Faraday.new(options) do |faraday|
@@ -75,3 +69,4 @@ class Octogate::Client
     end
   end
 end
+

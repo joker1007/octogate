@@ -1,6 +1,9 @@
 module Octogate
   class TargetBuilder
-    def initialize
+    attr_reader :name
+
+    def initialize(name)
+      @name           = name
       @url            = nil
       @username       = nil
       @password       = nil

@@ -1,7 +1,3 @@
-module Octogate::Model
-  def initialize(**args)
-    args.each do |k, v|
-      send("instance_variable_set", "@#{k}", v)
-    end
-  end
+class Octogate::Model < Hashie::Mash
+  include Hashie::Extensions::Coercion
 end

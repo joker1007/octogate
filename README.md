@@ -21,6 +21,10 @@ Or install it yourself as:
 
     $ gem install octogate
 
+## Requirements
+
+- Ruby-2.0.0 or later
+
 ## Usage
 
 Write config.rb.
@@ -30,30 +34,32 @@ token "token_string"
 
 target "jenkins" do
   hook_type [:push, :pull_request]
-  url "http://targethost.dev/job/CommitStage"
-  http_method :get
+  url "http://targethost.dev/job/JobName"
+  http_method :post
 
   parameter_type :query
   params key1: "value1", key2: "value2"
 
-  match -> {
-    hook.ref =~ /master/
+  match ->(event) {
+    event.ref =~ /master/
   }
 end
 
-target "jenkins2" do
+target "json_params" do
   hook_type [:push, :pull_request]
-  url "http://targethost2.dev/job/CommitStage"
-  http_method :get
+  url "http://targethost.dev/job/JobName"
+  http_method :post
 
   parameter_type :json
   params key1: "value1", key2: "value2"
 
-  match -> {
-    !(hook.ref =~ /master/)
+  match ->(event) {
+    event.ref =~ /json_params/
   }
 end
 ```
+
+More sample is [hear](https://github.com/joker1007/octogate/blob/master/spec/config_sample.rb)
 
 And launch server.
 
