@@ -1,4 +1,5 @@
 token "token"
+# ssl_verify false
 
 target "jenkins" do
   hook_type [:push, :pull_request]
