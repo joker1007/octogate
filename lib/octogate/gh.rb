@@ -6,7 +6,3 @@ module Octogate
     autoload :PullRequest , "octogate/gh/pull_request"
   end
 end
-
-require "octogate/gh/commit"
-require "octogate/gh/repository"
-require "octogate/gh/user"
