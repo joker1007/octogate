@@ -2,6 +2,9 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'octogate'
 require 'tapp'
 require 'webmock/rspec'
+require 'coveralls'
+
+Coveralls.wear!
 
 Tapp.configure do |config|
   config.default_printer = :awesome_print

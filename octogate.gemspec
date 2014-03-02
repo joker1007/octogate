@@ -31,4 +31,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "awesome_print"
   spec.add_development_dependency "webmock"
   spec.add_development_dependency "thin"
+  spec.add_development_dependency "coveralls"
 end
