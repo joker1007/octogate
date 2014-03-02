@@ -74,6 +74,11 @@ Usage: octogate [options]
 # => Endpoint is http://hostname:4567/token_string
 ```
 
+## Event Capability
+
+- Push Event
+- PullRequest Event
+
 ## Contributing
 
 1. Fork it ( https://github.com/joker1007/octogate/fork )
