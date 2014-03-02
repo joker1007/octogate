@@ -23,7 +23,7 @@ Or install it yourself as:
 Write config.rb.
 
 ```ruby
-token "token"
+token "token_string"
 
 target "jenkins" do
   hook_type [:push, :pull_request]
@@ -62,11 +62,12 @@ Usage: octogate [options]
     -o address                       Set address to bind (default = 0.0.0.0)
 
 % bundle exec octogate -c config.rb
+# => Endpoint is http://hostname:4567/token_string
 ```
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/octogate/fork )
+1. Fork it ( https://github.com/joker1007/octogate/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
