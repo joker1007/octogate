@@ -6,8 +6,8 @@ module Octogate
         instance.instance_eval(File.read(config_file), config_file)
         instance.instance_eval do
           @_target_builders.each do |tb|
-            Octogate.config.targets ||= []
-            Octogate.config.targets << tb.__to_target__
+            Octogate.config.targets ||= {}
+            Octogate.config.targets[tb.name] = tb.__to_target__
           end
         end
       end
@@ -22,7 +22,7 @@ module Octogate
     end
 
     def target(name, &block)
-      builder = TargetBuilder.new
+      builder = TargetBuilder.new(name)
       builder.instance_eval(&block)
       @_target_builders << builder
     end

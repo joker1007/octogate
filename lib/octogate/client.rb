@@ -9,17 +9,8 @@ class Octogate::Client
   end
 
   def request_to_targets
-    Octogate.config.targets.each do |t|
-      condition = event.default_condition
-      case t.match
-      when Proc
-        condition = condition && instance_exec(event, &t.match)
-      when nil
-      else
-        condition = condition && !!t.match
-      end
-
-      if condition
+    Octogate.config.targets.each do |target_name, t|
+      if match_target?(t)
         request(t)
       end
     end
@@ -56,6 +47,18 @@ class Octogate::Client
   end
 
   private
+
+  def match_target?(target)
+    condition = event.default_condition
+    case target.match
+    when Proc
+      condition && instance_exec(event, &target.match)
+    when nil
+      condition
+    else
+      condition && !!target.match
+    end
+  end
 
   def build_connection(options, username = nil, password = nil)
     conn = Faraday.new(options) do |faraday|

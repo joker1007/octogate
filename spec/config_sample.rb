@@ -13,7 +13,7 @@ target "jenkins" do
   }
 end
 
-target "jenkins2" do
+target "json_params" do
   hook_type [:push, :pull_request]
   url "http://targethost.dev/job/JobName"
   http_method :post

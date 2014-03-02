@@ -4,7 +4,7 @@ describe Octogate::ConfigLoader do
   describe ".load_config" do
     before do
       Octogate.config.token = nil
-      Octogate.config.targets = []
+      Octogate.config.targets = {}
     end
 
     subject { Octogate::ConfigLoader.load_config(config_file) }
@@ -14,13 +14,13 @@ describe Octogate::ConfigLoader do
       from_targets = Octogate.config.targets
 
       expect(from_token).to be_nil
-      expect(from_targets).to eq([])
+      expect(from_targets).to eq({})
 
       subject
 
       expect(Octogate.config.token).to eq("token")
       expect(Octogate.config.targets).to have(6).item
-      expect(Octogate.config.targets.first).to be_a Octogate::Target
+      expect(Octogate.config.targets["jenkins"]).to be_a Octogate::Target
     end
   end
 end

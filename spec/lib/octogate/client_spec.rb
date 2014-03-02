@@ -18,6 +18,28 @@ describe Octogate::Client do
       client.request_to_targets
       expect(WebMock).to have_requested(:post, "http://targethost.dev/job/JobName").with(body: {key1: "value1", key2: "value2"})
       expect(WebMock).to have_requested(:post, "http://targethost.dev/job/JobName").with(body: {always: "true"})
+      expect(WebMock).not_to have_requested(:post, "http://targethost.dev/job/JobName").with(body: {never: "true"})
+    end
+
+    describe "matching rule" do
+      it "request only targets that match rule" do
+        event = Octogate::Event::Push.new(ref: "json_params")
+        client = Octogate::Client.new(event)
+        expect(client).to receive(:request).with(Octogate.find_target("json_params"))
+        expect(client).to receive(:request).with(Octogate.find_target("always"))
+        client.request_to_targets
+      end
+    end
+  end
+
+  describe "#request" do
+    before do
+      stub_request(:post, "http://targethost.dev/job/JobName")
+        .to_return(:status => 200, :body => "", :headers => {})
+    end
+
+    after do
+      WebMock.reset!
     end
 
     it "can use event attributes on request parameter" do
@@ -27,7 +49,7 @@ describe Octogate::Client do
       )
 
       client = Octogate::Client.new(event)
-      client.request_to_targets
+      client.request(Octogate.find_target("block params"))
       expect(WebMock).to have_requested(:post, "http://targethost.dev/job/JobName").with(body: {ref: event.ref, head_commit_id: event.head_commit.id})
     end
 
@@ -37,18 +59,8 @@ describe Octogate::Client do
       )
 
       client = Octogate::Client.new(event)
-      client.request_to_targets
+      client.request(Octogate.find_target("always"))
       expect(WebMock).to have_requested(:post, "http://targethost.dev/job/JobName").with(body: {always: "true"})
-    end
-
-    it "never request to target that have false match rule" do
-      event = Octogate::Event::Push.new(
-        ref: "refs/heads/master",
-      )
-
-      client = Octogate::Client.new(event)
-      client.request_to_targets
-      expect(WebMock).not_to have_requested(:post, "http://targethost.dev/job/JobName").with(body: {never: "true"})
     end
 
     it "can request with json parameters" do
@@ -57,8 +69,8 @@ describe Octogate::Client do
       )
 
       client = Octogate::Client.new(event)
-      client.request_to_targets
-      expect(WebMock).to have_requested(:post, "http://targethost.dev/job/JobName").with(body: Oj.dump({key1: "value1", key2: "value2"}), headers: {'Content-Type' => 'application/json'})
+      client.request(Octogate.find_target("json_params"))
+      expect(WebMock).to have_requested(:post, "http://targethost.dev/job/JobName").with(body: {key1: "value1", key2: "value2"}, headers: {'Content-Type' => 'application/json'})
     end
 
     it "can use basic authentication" do
@@ -70,7 +82,7 @@ describe Octogate::Client do
       )
 
       client = Octogate::Client.new(event)
-      client.request_to_targets
+      client.request(Octogate.find_target("basic auth"))
       expect(WebMock).to have_requested(:post, "http://username_sample:password_sample@targethost.dev/job/JobName").with(body: {key1: "value1", key2: "value2"})
     end
   end

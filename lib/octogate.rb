@@ -12,6 +12,10 @@ module Octogate
     def config
       @config ||= Configuration.instance
     end
+
+    def find_target(key)
+      @config.targets.fetch(key)
+    end
   end
 end
 
