@@ -3,6 +3,11 @@ require 'octogate'
 require 'tapp'
 require 'webmock/rspec'
 
+Tapp.configure do |config|
+  config.default_printer = :awesome_print
+  config.report_caller   = true
+end
+
 WebMock.disable_net_connect!
 
 RSpec.configure do |config|

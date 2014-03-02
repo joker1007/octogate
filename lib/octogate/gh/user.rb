@@ -1,7 +1,4 @@
 module Octogate
-  class GH::User
-    include Model
-
-    attr_reader :name, :email, :username
+  class GH::User < Model
   end
 end
