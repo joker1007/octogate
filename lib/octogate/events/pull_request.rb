@@ -18,7 +18,7 @@ module Octogate
     end
 
     def default_condition
-      !deleted
+      action != "closed"
     end
   end
 end

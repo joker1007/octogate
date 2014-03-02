@@ -1,5 +1,6 @@
 require "faraday"
 require "uri"
+require "active_support/core_ext/object"
 require "octogate/transfer_request"
 
 class Octogate::Client
@@ -40,7 +41,7 @@ class Octogate::Client
   private
 
   def match_target?(target)
-    condition = event.default_condition
+    condition = event.default_condition && target.include_event?(event)
     case target.match
     when Proc
       condition && instance_exec(event, &target.match)

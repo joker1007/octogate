@@ -15,5 +15,11 @@ describe Octogate::Target do
 
       it { should be_false }
     end
+
+    context "Given event instance" do
+      subject { target.include_event?(Octogate::Event::Push.new()) }
+
+      it { should be_true }
+    end
   end
 end

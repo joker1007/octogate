@@ -18,6 +18,7 @@ describe Octogate::Client do
       client.request_to_targets
       expect(WebMock).to have_requested(:post, "http://targethost.dev/job/JobName").with(body: {key1: "value1", key2: "value2"})
       expect(WebMock).to have_requested(:post, "http://targethost.dev/job/JobName").with(body: {always: "true"})
+      expect(WebMock).to have_requested(:post, "http://targethost.dev/job/JobName").with(body: {always: "push_only"})
       expect(WebMock).not_to have_requested(:post, "http://targethost.dev/job/JobName").with(body: {never: "true"})
     end
 
@@ -27,6 +28,18 @@ describe Octogate::Client do
         client = Octogate::Client.new(event)
         expect(client).to receive(:request).with(Octogate.find_target("json_params"))
         expect(client).to receive(:request).with(Octogate.find_target("always"))
+        expect(client).to receive(:request).with(Octogate.find_target("always_push_only"))
+        client.request_to_targets
+      end
+    end
+
+    describe "matching hook_type" do
+      it "request only targets that match hook_type" do
+        event = Octogate::Event::PullRequest.new(action: "opened", pull_request: {head: {ref: "json_params"}})
+        client = Octogate::Client.new(event)
+        expect(client).to receive(:request).with(Octogate.find_target("json_params"))
+        expect(client).to receive(:request).with(Octogate.find_target("always"))
+        expect(client).not_to receive(:request).with(Octogate.find_target("always_push_only"))
         client.request_to_targets
       end
     end

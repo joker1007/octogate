@@ -19,7 +19,7 @@ describe Octogate::ConfigLoader do
       subject
 
       expect(Octogate.config.token).to eq("token")
-      expect(Octogate.config.targets).to have(6).item
+      expect(Octogate.config.targets).to have(7).item
       expect(Octogate.config.targets["jenkins"]).to be_a Octogate::Target
     end
   end
