@@ -1,5 +1,6 @@
 require "faraday"
 require "uri"
+require "octogate/transfer_request"
 
 class Octogate::Client
   attr_reader :event
@@ -28,21 +29,11 @@ class Octogate::Client
 
     case t.http_method
     when :get
-      conn.get do |req|
-        req.url uri.path
-        params.each do |k, v|
-          req.params[k] = v
-        end
-      end
+      Octogate::TransferRequest::GET.new(conn)
+        .do_request(url: uri.path, params: params)
     when :post
-      if t.parameter_type == :json
-        conn.post uri.path do |req|
-          req.headers['Content-Type'] = 'application/json'
-          req.body = Oj.dump(params)
-        end
-      else
-        conn.post uri.path, params
-      end
+      Octogate::TransferRequest::POST.new(conn)
+        .do_request(url: uri.path, params: params, parameter_type: t.parameter_type)
     end
   end
 
@@ -78,3 +69,4 @@ class Octogate::Client
     end
   end
 end
+
