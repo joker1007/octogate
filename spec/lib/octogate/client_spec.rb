@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Octogate::Client do
   describe "#request_to_targets" do
-    let(:event) { Octogate::Event::Push.parse(push_payload) }
+    let(:event) { Octogate::Event::Push.parse(read_payload(:push)) }
 
     before do
       stub_request(:post, "http://targethost.dev/job/JobName")

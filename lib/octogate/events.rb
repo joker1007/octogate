@@ -1,6 +1,9 @@
 require "active_support/core_ext/hash"
 module Octogate
   module Event
+    autoload :Push        , "octogate/events/push"
+    autoload :PullRequest , "octogate/events/pull_request"
+
     class << self
       def register_event(name, klass)
         @events ||= {}.with_indifferent_access
@@ -17,6 +20,3 @@ module Octogate
 
   class NotRegisteredEvent < StandardError; end
 end
-
-require "octogate/events/base"
-require "octogate/events/push"

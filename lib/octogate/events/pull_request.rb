@@ -1,3 +1,4 @@
+require "octogate/events/base"
 require "octogate/gh"
 
 module Octogate
