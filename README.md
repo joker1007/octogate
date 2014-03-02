@@ -2,7 +2,9 @@
 [![Build Status](https://travis-ci.org/joker1007/octogate.png?branch=master)](https://travis-ci.org/joker1007/octogate)
 [![Code Climate](https://codeclimate.com/github/joker1007/octogate.png)](https://codeclimate.com/github/joker1007/octogate)
 
-Github hook proxy server
+Github hook proxy server of Sinatra Framework.
+
+You can write about request destination in Ruby DSL
 
 ## Installation
 

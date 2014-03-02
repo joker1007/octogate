@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["joker1007"]
   spec.email         = ["kakyoin.hierophant@gmail.com"]
   spec.summary       = %q{Github webhook proxy server}
-  spec.description   = %q{Github webhook proxy server}
+  spec.description   = %q{Github webhook proxy server. Request target is defined by Ruby DSL}
   spec.homepage      = "https://github.com/joker1007/octogate"
   spec.license       = "MIT"
 
