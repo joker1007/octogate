@@ -13,11 +13,9 @@ class Octogate::Server < Sinatra::Base
     end
 
     event_name = request.env["HTTP_X_GITHUB_EVENT"]
-    case event_name
-    when "push"
-      event = Octogate::Event::Push.parse(params[:payload])
-      Octogate::Client.new(event).request_to_targets
-    end
+    event_klass = Octogate::Event.get(event_name)
+    event = event_klass.parse(params[:payload])
+    Octogate::Client.new(event).request_to_targets
 
     return
   end
