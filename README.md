@@ -1,4 +1,5 @@
 # Octogate
+[![Gem Version](https://badge.fury.io/rb/octogate.png)](http://badge.fury.io/rb/octogate)
 [![Build Status](https://travis-ci.org/joker1007/octogate.png?branch=master)](https://travis-ci.org/joker1007/octogate)
 [![Code Climate](https://codeclimate.com/github/joker1007/octogate.png)](https://codeclimate.com/github/joker1007/octogate)
 
