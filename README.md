@@ -110,6 +110,8 @@ Usage: octogate [options]
 | parameter_type   | :query or :json             | :query = use form parameter or get query parameter, :json = serialize payload by json format (default = :query) |
 | params           | Hash or Proc                | set payload parameters. if pass Proc instance, call with event instance and use result                          |
 | match            | Boolean or Proc             | if this value is set, then transfer process is executed only when the evaluation result is truthy.              |
+| username         | String                      | set Basic Auth username                                                                                         |
+| password         | String                      | set Basic Auth password                                                                                         |
 
 ### Event type 
 | name           | class name                    |
