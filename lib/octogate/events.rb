@@ -20,3 +20,4 @@ end
 
 require "octogate/events/push"
 require "octogate/events/pull_request"
+require "octogate/events/issue"

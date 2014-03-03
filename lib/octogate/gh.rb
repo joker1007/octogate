@@ -4,5 +4,6 @@ module Octogate
     autoload :Repository  , "octogate/gh/repository"
     autoload :User        , "octogate/gh/user"
     autoload :PullRequest , "octogate/gh/pull_request"
+    autoload :Issue       , "octogate/gh/issue"
   end
 end
