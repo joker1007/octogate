@@ -11,4 +11,10 @@ describe Octogate::Event::Push do
     it { expect(subject.head_commit).to be_a Octogate::GH::Commit }
     it { expect(subject.repository).to be_a Octogate::GH::Repository }
   end
+
+  describe "registered" do
+    subject { Octogate::Event.get(:push) }
+
+    it { should eq Octogate::Event::Push }
+  end
 end

@@ -11,4 +11,10 @@ describe Octogate::Event::PullRequest do
     it { expect(subject.pull_request.base).to be_a Octogate::GH::Commit }
     it { expect(subject.pull_request.head).to be_a Octogate::GH::Commit }
   end
+
+  describe "registered" do
+    subject { Octogate::Event.get(:pull_request) }
+
+    it { should eq Octogate::Event::PullRequest }
+  end
 end
