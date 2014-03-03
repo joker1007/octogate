@@ -26,6 +26,11 @@ Or install it yourself as:
 
 - Ruby-2.0.0 or later
 
+## Event Capability
+
+- Push Event
+- PullRequest Event
+
 ## Usage
 
 Write config.rb.
@@ -34,7 +39,7 @@ Write config.rb.
 token "token_string"
 
 target "jenkins" do
-  hook_type [:push, :pull_request]
+  hook_type [:push]
   url "http://targethost.dev/job/JobName"
   http_method :post
 
@@ -45,6 +50,8 @@ target "jenkins" do
     event.ref =~ /master/
   }
 end
+# if event type is push and event.ref contains "master",
+# octogate requests "http://targethost.dev/job/JobName" via POST method, request body is {key1: "value1, key2: "value2"} params
 
 target "json_params" do
   hook_type [:push, :pull_request]
@@ -55,9 +62,17 @@ target "json_params" do
   params key1: "value1", key2: "value2"
 
   match ->(event) {
-    event.ref =~ /json_params/
+    case event
+    when Octogate::Event::PullRequest
+      event.try(:pull_request).try(:head).try(:ref) =~ /json_params/
+    when Octogate::Event::Push
+      event.ref =~ /json_params/
+    end
   }
 end
+# if event type is push or pull_request, and ref name contains "json_params",
+# octogate requests "http://targethost.dev/job/JobName" via POST method, body is {key1: "value1, key2: "value2"} as JSON FORMAT
+
 ```
 
 More sample is [hear](https://github.com/joker1007/octogate/blob/master/spec/config_sample.rb)
@@ -75,10 +90,30 @@ Usage: octogate [options]
 # => Endpoint is http://hostname:4567/token_string
 ```
 
-## Event Capability
+## Config DSL Reference
 
-- Push Event
-- PullRequest Event
+### Global definitions
+| name       | arg              | description                                                                           |
+| -------    | --------         | ------------                                                                          |
+| token      | String           | set token used as endpoint url.                                                       |
+| ssl_verify | Boolean          | if set false, make disable SSL verification. (if target uses self-signed certificate) |
+| target     | String and Block | String is target name. Block is target definition block.                              |
+
+### Target definitions
+| name             | arg                         | description                                                                                                     |
+| ---------------- | -----------------           | ----------------------------------------------------------------------------------------------------            |
+| hook_type        | Array (value is event type) | set hook event (default = [:push])                                                                              |
+| url              | String                      | set destination URL                                                                                             |
+| http_method      | Symbol                      | set HTTP method when octogate request target.                                                                   |
+| parameter_type   | :query or :json             | :query = use form parameter or get query parameter, :json = serialize payload by json format (default = :query) |
+| params           | Hash or Proc                | set payload parameters. if pass Proc instance, call with event instance and use result                          |
+| match            | Boolean or Proc             | if this value is set, then transfer process is executed only when the evaluation result is truthy.              |
+
+### Event type 
+| name          | class name                   |
+| -------       | ------------------           |
+| :push         | Octogate::Event::Push        |
+| :pull_request | Octogate::Event::PullRequest |
 
 ## Hosting on Heroku
 
