@@ -30,6 +30,8 @@ Or install it yourself as:
 
 - Push Event
 - PullRequest Event
+- Issues Event
+- Issue Comment Event
 
 ## Usage
 
@@ -110,10 +112,12 @@ Usage: octogate [options]
 | match            | Boolean or Proc             | if this value is set, then transfer process is executed only when the evaluation result is truthy.              |
 
 ### Event type 
-| name          | class name                   |
-| -------       | ------------------           |
-| :push         | Octogate::Event::Push        |
-| :pull_request | Octogate::Event::PullRequest |
+| name           | class name                    |
+| -------        | ------------------            |
+| :push          | Octogate::Event::Push         |
+| :pull_request  | Octogate::Event::PullRequest  |
+| :issues        | Octogate::Event::Issue        |
+| :issue_comment | Octogate::Event::IssueComment |
 
 Event instance is Mash subclass. it has same data with the payload sent by GitHub Hook.
 
