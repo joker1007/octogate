@@ -115,6 +115,10 @@ Usage: octogate [options]
 | :push         | Octogate::Event::Push        |
 | :pull_request | Octogate::Event::PullRequest |
 
+Event instance is Mash subclass. it has same data with the payload sent by GitHub Hook.
+
+ref. [Event Types | GitHub API](https://developer.github.com/v3/activity/events/types/#pushevent "Event Types | GitHub API")
+
 ## Hosting on Heroku
 
 Create directory and bundle init.
