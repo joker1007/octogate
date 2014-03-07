@@ -7,5 +7,6 @@ module Octogate
     autoload :Issue        , "octogate/gh/issue"
     autoload :Label        , "octogate/gh/label"
     autoload :IssueComment , "octogate/gh/issue_comment"
+    autoload :ReviewComment, "octogate/gh/review_comment"
   end
 end
