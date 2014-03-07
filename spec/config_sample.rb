@@ -39,7 +39,7 @@ target "block params" do
   http_method :post
 
   parameter_type :query
-  params ->(event) { {ref: event.ref, head_commit_id: event.head_commit.id} }
+  params ->(event) { {ref: event.ref, head_commit_id: event.head_commit.id, method: http_method} }
 
   match ->(event) {
     event.ref =~ /block_parameters/

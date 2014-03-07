@@ -18,23 +18,24 @@ class Octogate::Client
     end
   end
 
-  def request(t)
-    uri = URI(t.url)
+  def request(target)
+    uri = URI(target.url)
 
-    options = {url: t.url}
+    options = {url: target.url}
     options.merge!(ssl_options) if uri.scheme == "https"
 
-    conn = build_connection(options, t.username, t.password)
+    conn = build_connection(options, target.username, target.password)
 
-    params = t.params.respond_to?(:call) ? t.params.call(event) : t.params
+    params = target.params.is_a?(Proc) ?
+      target.instance_exec(event, &target.params) : target.params
 
-    case t.http_method
+    case target.http_method
     when :get
       Octogate::TransferRequest::GET.new(conn)
         .do_request(url: uri.path, params: params)
     when :post
       Octogate::TransferRequest::POST.new(conn)
-        .do_request(url: uri.path, params: params, parameter_type: t.parameter_type)
+        .do_request(url: uri.path, params: params, parameter_type: target.parameter_type)
     end
   end
 
@@ -44,7 +45,7 @@ class Octogate::Client
     condition = event.default_condition && target.include_event?(event)
     case target.match
     when Proc
-      condition && instance_exec(event, &target.match)
+      condition && target.instance_exec(event, &target.match)
     when nil
       condition
     else

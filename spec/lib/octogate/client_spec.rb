@@ -63,7 +63,7 @@ describe Octogate::Client do
 
       client = Octogate::Client.new(event)
       client.request(Octogate.find_target("block params"))
-      expect(WebMock).to have_requested(:post, "http://targethost.dev/job/JobName").with(body: {ref: event.ref, head_commit_id: event.head_commit.id})
+      expect(WebMock).to have_requested(:post, "http://targethost.dev/job/JobName").with(body: {ref: event.ref, head_commit_id: event.head_commit.id, method: "post"})
     end
 
     it "request always to target that have no match rule" do
