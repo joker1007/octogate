@@ -30,6 +30,7 @@ Or install it yourself as:
 
 - Push Event
 - PullRequest Event
+- PullRequest Review Comment Event
 - Issues Event
 - Issue Comment Event
 
@@ -114,12 +115,13 @@ Usage: octogate [options]
 | password         | String                      | set Basic Auth password                                                                                         |
 
 ### Event type 
-| name           | class name                    |
-| -------        | ------------------            |
-| :push          | Octogate::Event::Push         |
-| :pull_request  | Octogate::Event::PullRequest  |
-| :issues        | Octogate::Event::Issue        |
-| :issue_comment | Octogate::Event::IssueComment |
+| name                         | class name                                |
+| -------                      | ------------------                        |
+| :push                        | Octogate::Event::Push                     |
+| :pull_request                | Octogate::Event::PullRequest              |
+| :pull_request_review_comment | Octogate::Event::PullRequestReviewComment |
+| :issues                      | Octogate::Event::Issue                    |
+| :issue_comment               | Octogate::Event::IssueComment             |
 
 Event instance is Mash subclass. it has same data with the payload sent by GitHub Hook.
 
