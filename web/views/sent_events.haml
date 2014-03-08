@@ -1,0 +1,45 @@
+!!! 5
+%html
+  %head
+    %title Octogate Sent Events
+    %script{src: "/javascripts/jquery-1.11.0.min.js"}
+    %script{src: "/bootstrap/js/bootstrap.min.js"}
+    %link{rel: "stylesheet", href: "/bootstrap/css/bootstrap.min.css"}
+    :css
+      kbd {
+        background-color: #F5F5F5;
+        border: 0;
+        box-shadow: 0 0 0 rgba(0,0,0,0) inset;
+      }
+
+%body
+  %h2 Octogate Sent Events (Recently 100 Targets)
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th Delivery ID
+        %th Event Name
+        %th Target Name
+        %th URL
+        %th View Payload
+        %th Sent at
+    %tbody
+      - sent.each do |s|
+        %tr
+          %td= s.delivery_id
+          %td= s.name
+          %td= s.target_name
+          %td= s.target_url
+          %td
+            %button.btn.btn-default{data: {toggle: "modal", target: "#payload-#{s.delivery_id}"}} View Payload
+            .modal.fade{id: "payload-#{s.delivery_id}", tabindex: "-1", role: "dialog", aria: {hidden: "true"}}
+              .modal-dialog
+                .modal-content
+                  .modal-header
+                    %button.close{data: {dismiss: "modal"}, aria: {hidden: "true"}} &times;
+                    %h4 Sent Payload
+                  .modal-body
+                    != s.sent_payload.awesome_inspect(html: true)
+                  .modal-footer
+                    %button.btn.btn-default{data: {dismiss: "modal"}} Close
+          %td= s.sent_at.strftime("%Y/%m/%d %H:%M:%S")

@@ -1,0 +1,22 @@
+!!! 5
+%html
+  %head
+    %title Octogate Received Events
+    %link{rel: "stylesheet", href: "/bootstrap/css/bootstrap.css"}
+
+%body
+  %h2 Octogate Received Events (Recently 100 Events)
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th Delivery ID
+        %th Event Type
+        %th Repository
+        %th Received at
+    %tbody
+      - received.each do |r|
+        %tr
+          %td= r.delivery_id
+          %td= r.name
+          %td= r.repository.full_name || r.repository.name
+          %td= r.received_at.strftime("%Y/%m/%d %H:%M:%S")

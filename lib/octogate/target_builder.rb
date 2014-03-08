@@ -47,6 +47,7 @@ module Octogate
 
     def __to_target__
       Target.new(
+        name:            @name,
         url:             @url,
         username:        @username,
         password:        @password,
