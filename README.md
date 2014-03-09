@@ -93,6 +93,14 @@ Usage: octogate [options]
 # => Endpoint is http://hostname:4567/token_string
 ```
 
+## Routing
+
+| URL                                         | description                                          |
+| -----                                       | -----                                                |
+| http://hostname:port/:token                 | Event Hook Endpoint                                  |
+| http://hostname:port/:token/received_events | View Received Events (Recently 100 Events from boot) |
+| http://hostname:port/:token/sent_events     | View Sent Events (Recently 100 Events from boot)     |
+
 ## Config DSL Reference
 
 ### Global definitions
