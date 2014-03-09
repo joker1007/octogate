@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Octogate::Event::PullRequestReviewComment do
   describe ".parse" do
-    subject { described_class.parse(read_payload(:pull_request_review_comment)) }
+    subject { described_class.parse("delivery_id", read_payload(:pull_request_review_comment)) }
     it { should be_a described_class }
 
     it { expect(subject.comment).to be_a Octogate::GH::ReviewComment }

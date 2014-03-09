@@ -37,6 +37,9 @@ class Octogate::Client
       Octogate::TransferRequest::POST.new(conn)
         .do_request(url: uri.path, params: params, parameter_type: target.parameter_type)
     end
+
+    sent_event = Octogate::SentEvent.build(event, target, params)
+    Octogate.add_sent(sent_event)
   end
 
   private

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Octogate::Event::Issue do
   describe ".parse" do
-    subject { described_class.parse(read_payload(:issues)) }
+    subject { described_class.parse("delivery_id", read_payload(:issues)) }
     it { should be_a described_class }
 
     it { expect(subject.action).to eq "opened" }
