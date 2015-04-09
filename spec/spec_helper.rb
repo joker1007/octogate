@@ -4,7 +4,9 @@ Coveralls.wear!
 
 require 'octogate'
 require 'tapp'
+require 'tapp-awesome_print'
 require 'webmock/rspec'
+require 'rspec/collection_matchers'
 
 Tapp.configure do |config|
   config.default_printer = :awesome_print

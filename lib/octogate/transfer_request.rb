@@ -29,7 +29,7 @@ module Octogate
         if options[:parameter_type] == :json && options[:params]
           conn.post options[:url] do |req|
             req.headers['Content-Type'] = 'application/json'
-            req.body = Oj.dump(options[:params])
+            req.body = Oj.dump(options[:params], mode: :compat)
           end
         else
           conn.post options[:url], options[:params]
